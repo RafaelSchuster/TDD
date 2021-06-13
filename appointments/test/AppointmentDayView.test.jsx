@@ -127,4 +127,16 @@ describe("AppointmentsDayView", () => {
     ReactTestUtils.Simulate.click(button);
     expect(container.textContent).toMatch("Jordan");
   });
+  it("adds class-name to button upon click", () => {
+    render(<AppointmentsDayView appointments={appointments} />);
+    const button = container.querySelectorAll("button")[1];
+    ReactTestUtils.Simulate.click(button);
+    // expect(button).toHaveClass("toggled");
+    expect(button.classList.contains("toggled")).toBe(true);
+  });
+  it("doesn't add className without a click", () => {
+    render(<AppointmentsDayView appointments={appointments} />);
+    const button = container.querySelectorAll("button")[1];
+    expect(button.classList.contains("toggled")).toBe(false);
+  });
 });
