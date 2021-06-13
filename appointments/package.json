@@ -2,10 +2,11 @@
   "name": "appointments",
   "version": "1.0.0",
   "description": "Appointments System",
-  "main": "index.js",
-  "scripts":{
-    "test": "jest --watchAll --env=jsdom"
-},
+  "main": "index.jsx",
+  "scripts": {
+    "test": "jest --watchAll --env=jsdom",
+    "build" : "webpack"
+  },
   "repository": {
     "type": "git",
     "url": "example.com"
@@ -17,7 +18,10 @@
     "@babel/preset-env": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
     "@babel/runtime": "^7.14.5",
-    "jest": "^27.0.4"
+    "babel-loader": "^8.2.2",
+    "jest": "^27.0.4",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2"
   },
   "dependencies": {
     "jsdom": "^16.6.0",

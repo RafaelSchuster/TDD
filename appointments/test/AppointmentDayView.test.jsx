@@ -1,6 +1,7 @@
+import { expect, it } from "@jest/globals";
 import React from "react";
 import ReactDOM from "react-dom";
-import { Appointment, AppointmentsDayView } from "../src/Appointment";
+import { Appointment, AppointmentsDayView } from "../src/AppointmentDayView";
 
 describe("Appointment", () => {
   let customer;
@@ -19,14 +20,67 @@ describe("Appointment", () => {
     render(<Appointment customer={customer} />);
     expect(container.textContent).toMatch("Jordan");
   });
+  it("renders a table with all the fields", () => {
+    render(<Appointment customer={[]} />);
+    expect(container.querySelector("table")).not.toBeNull();
+    expect(container.textContent).toMatch("First Name");
+    expect(container.textContent).toMatch("Last Name");
+    expect(container.textContent).toMatch("Phone Number");
+    expect(container.textContent).toMatch("Stylist");
+    expect(container.textContent).toMatch("Service");
+    expect(container.textContent).toMatch("Notes");
+  });
+  it("renders a table with the right header", () => {
+    customer = { startsAt: "09:30" };
+    render(<Appointment customer={customer} />);
+    expect(container.querySelector("#table-appt-header")).not.toBeNull();
+    expect(container.querySelector("#table-appt-header").textContent).toEqual(
+      "09:30"
+    );
+  });
+  it("renders table with tds with the right ids", () => {
+    render(<Appointment customer={[]} />);
+    expect(container.querySelector("#first-name")).not.toBeNull();
+    expect(container.querySelector("#last-name")).not.toBeNull();
+    expect(container.querySelector("#phone")).not.toBeNull();
+    expect(container.querySelector("#stylist")).not.toBeNull();
+    expect(container.querySelector("#service")).not.toBeNull();
+    expect(container.querySelector("#notes")).not.toBeNull();
+  });
+  it("renders a table with the right fields", () => {
+    customer = {
+      firstName: "Rob",
+      lastName: "Olk",
+      phone: "01",
+      stylist: "hairdresser",
+      service: "hair-cut",
+      notes: "no shampoo",
+    };
+
+    render(<Appointment customer={customer} />);
+    expect(container.querySelector("#first-name").textContent).toEqual("Rob");
+    expect(container.querySelector("#last-name").textContent).toEqual("Olk");
+    expect(container.querySelector("#phone").textContent).toEqual("01");
+    expect(container.querySelector("#stylist").textContent).toEqual(
+      "hairdresser"
+    );
+    expect(container.querySelector("#service").textContent).toEqual("hair-cut");
+    expect(container.querySelector("#notes").textContent).toEqual("no shampoo");
+  });
 });
 
 describe("AppointmentsDayView", () => {
   let container;
   const today = new Date();
   const appointments = [
-    { startsAt: today.setHours(12, 0), customer: { firstName: "Ashley" } },
-    { startsAt: today.setHours(13, 0), customer: { firstName: "Jordan" } },
+    {
+      startsAt: today.setHours(12, 0),
+      customer: { firstName: "Ashley" },
+    },
+    {
+      startsAt: today.setHours(13, 0),
+      customer: { firstName: "Jordan" },
+    },
   ];
 
   beforeEach(() => {
